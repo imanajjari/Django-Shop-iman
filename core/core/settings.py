@@ -25,6 +25,7 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-za$-%p^k32hia-#&%_7qi
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG',cast=bool ,default=True) 
+SHOW_DEBUGGER_TOOLBAR = config("SHOW_DEBUGGER_TOOLBAR", cast=bool, default=False)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS',cast=lambda v: [item.strip() for item in  v.split(',')] ,default="*")
 
@@ -151,3 +152,15 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool, default=False)   # True for T
 EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool, default=False)   # Set to True if using SSL
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default="")   # SMTP server username
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default="")   # SMTP server password
+
+# django debug toolbar for docker usage
+if SHOW_DEBUGGER_TOOLBAR:
+    INSTALLED_APPS += [
+        "debug_toolbar",
+    ]
+    MIDDLEWARE += [
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+    ]
+    import socket  # only if you haven't already imported this
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
