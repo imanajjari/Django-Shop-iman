@@ -111,11 +111,11 @@
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 {% comment %} <a class="dropdown-item" href="{% url 'dashboard:home' %}">پروفایل</a> {% endcomment %}
-                                {% comment %} <a class="dropdown-item" href="{% url 'accounts:logout' %}">خروج</a> {% endcomment %}
+                                <a class="dropdown-item" href="{% url 'accounts:logout' %}">خروج</a>
                             </div>
 
                             {% else %}
-                            {% comment %} <a class="btn btn-primary btn-transition" href="{% url 'accounts:login' %}">ورود</a> {% endcomment %}
+                            <a class="btn btn-primary btn-transition" href="{% url 'accounts:login' %}">ورود</a>
                             {% endif %}
                         </li>
                     </ul>
@@ -643,7 +643,7 @@
 
     {% block extra_js_no_compress %} {% endblock extra_js_no_compress %}
 
-    {% comment %} {% include 'messages.html' %} {% endcomment %}
+    {% include 'messages.html' %}
 </body>
 
 </html>
