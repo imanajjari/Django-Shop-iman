@@ -94,10 +94,10 @@
                                 <i class="bi-basket"></i>
                                 <span class="cart-item-count ">3</span>
                             </button> -->
-                            {% comment %} <a href="{% url 'cart:cart-summary' %}" class="btn btn-ghost-secondary btn-icon">
+                            <a href="{% url 'cart:cart-summary' %}" class="btn btn-ghost-secondary btn-icon">
                                 <i class="bi-basket"></i>
                                 <span class="cart-item-count" id="total-cart-item-count">{{cart.get_total_quantity}}</span>
-                            </a> {% endcomment %}
+                            </a> 
                             <!-- End Shopping Cart -->
                             {% if request.user.is_authenticated %}
 
@@ -588,7 +588,7 @@
      
             //console.log(product_id)
             $.ajax({
-                {% comment %} url: "{%  url 'cart:session-add-product' %}", {% endcomment %}
+                url: "{%  url 'cart:session-add-product' %}",
                 method: 'POST',
                 data: {
                     product_id: product_id,
@@ -610,7 +610,7 @@
      
             //console.log(product_id)
             $.ajax({
-                {% comment %} url: "{%  url 'shop:add-or-remove-wishlist' %}", {% endcomment %}
+                {% comment %} url: "{%  url 'shop:add-or-remove-wishlist' %}",  {% endcomment %}
                 method: 'POST',
                 data: {
                     product_id: product_id,
