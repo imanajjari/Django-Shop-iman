@@ -101,7 +101,7 @@ Here are the main Goal of project
 &check;project setup base on docker  
 &check;authentication and authorization with email  
 &check;create shop and products  
-&#x2610;manage and create cart  
+&check;manage and create cart  
 &#x2610;users dashboard based and pages  
 &#x2610;product and inventory management  
 &#x2610;session and db management of cart  
