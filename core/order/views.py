@@ -18,8 +18,8 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.shortcuts import redirect
 # Create your views here.
-# from payment.zarinpal_client import ZarinPalSandbox
-# from payment.models import PaymentModel
+from payment.zarinpal_client import ZarinPalSandbox
+from payment.models import PaymentModel
 
 
 class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormView):
@@ -108,43 +108,43 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
         return context
 
 
-# class OrderCompletedView(LoginRequiredMixin, HasCustomerAccessPermission, TemplateView):
-#     template_name = "order/completed.html"
+class OrderCompletedView(LoginRequiredMixin, HasCustomerAccessPermission, TemplateView):
+    template_name = "order/completed.html"
     
-# class OrderFailedView(LoginRequiredMixin, HasCustomerAccessPermission, TemplateView):
-#     template_name = "order/failed.html"
+class OrderFailedView(LoginRequiredMixin, HasCustomerAccessPermission, TemplateView):
+    template_name = "order/failed.html"
 
 
-# class ValidateCouponView(LoginRequiredMixin, HasCustomerAccessPermission, View):
+class ValidateCouponView(LoginRequiredMixin, HasCustomerAccessPermission, View):
 
-#     def post(self, request, *args, **kwargs):
-#         code = request.POST.get("code")
-#         user = self.request.user
+    def post(self, request, *args, **kwargs):
+        code = request.POST.get("code")
+        user = self.request.user
 
-#         status_code = 200
-#         message = "کد تخفیف با موفقیت ثبت شد"
-#         total_price = 0
-#         total_tax = 0
+        status_code = 200
+        message = "کد تخفیف با موفقیت ثبت شد"
+        total_price = 0
+        total_tax = 0
 
-#         try:
-#             coupon = CouponModel.objects.get(code=code)
-#         except CouponModel.DoesNotExist:
-#             return JsonResponse({"message": "کد تخفیف یافت نشد"}, status=404)
-#         else:
-#             if coupon.used_by.count() >= coupon.max_limit_usage:
-#                 status_code, message = 403, "محدودیت در تعداد استفاده"
+        try:
+            coupon = CouponModel.objects.get(code=code)
+        except CouponModel.DoesNotExist:
+            return JsonResponse({"message": "کد تخفیف یافت نشد"}, status=404)
+        else:
+            if coupon.used_by.count() >= coupon.max_limit_usage:
+                status_code, message = 403, "محدودیت در تعداد استفاده"
 
-#             elif coupon.expiration_date and coupon.expiration_date < timezone.now():
-#                 status_code, message = 403, "کد تخفیف منقضی شده است"
+            elif coupon.expiration_date and coupon.expiration_date < timezone.now():
+                status_code, message = 403, "کد تخفیف منقضی شده است"
 
-#             elif user in coupon.used_by.all():
-#                 status_code, message = 403, "این کد تخفیف قبلا توسط شما استفاده شده است"
+            elif user in coupon.used_by.all():
+                status_code, message = 403, "این کد تخفیف قبلا توسط شما استفاده شده است"
 
-#             else:
-#                 cart = CartModel.objects.get(user=self.request.user)
+            else:
+                cart = CartModel.objects.get(user=self.request.user)
 
-#                 total_price = cart.calculate_total_price()
-#                 total_price = round(
-#                     total_price - (total_price * (coupon.discount_percent/100)))
-#                 total_tax = round((total_price * 9)/100)
-#         return JsonResponse({"message": message, "total_tax": total_tax, "total_price": total_price}, status=status_code)
+                total_price = cart.calculate_total_price()
+                total_price = round(
+                    total_price - (total_price * (coupon.discount_percent/100)))
+                total_tax = round((total_price * 9)/100)
+        return JsonResponse({"message": message, "total_tax": total_tax, "total_price": total_price}, status=status_code)

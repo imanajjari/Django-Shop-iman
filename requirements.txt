@@ -4,6 +4,7 @@ python-decouple
 django-debug-toolbar
 Pillow
 Faker
+requests
 
 #databse modules
 psycopg[binary]

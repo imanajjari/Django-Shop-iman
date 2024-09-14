@@ -1,31 +1,31 @@
 from django.contrib import admin
-from .models import  CouponModel, UserAddressModel
+from .models import  CouponModel, UserAddressModel, OrderModel, OrderItemModel
 
 # Register your models here.
 
 
-# @admin.register(OrderModel)
-# class OrderModelAdmin(admin.ModelAdmin):
-#     list_display = (
-#         "id",
-#         "user",
-#         "total_price",
-#         "coupon",
-#         "status",
-#         "created_date"
-#     )
+@admin.register(OrderModel)
+class OrderModelAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "user",
+        "total_price",
+        "coupon",
+        "status",
+        "created_date"
+    )
 
 
-# @admin.register(OrderItemModel)
-# class OrderItemModelAdmin(admin.ModelAdmin):
-#     list_display = (
-#         "id",
-#         "order",
-#         "product",
-#         "quantity",
-#         "price",
-#         "created_date"
-#     )
+@admin.register(OrderItemModel)
+class OrderItemModelAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "order",
+        "product",
+        "quantity",
+        "price",
+        "created_date"
+    )
 
 
 @admin.register(CouponModel)

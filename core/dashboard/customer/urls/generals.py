@@ -4,5 +4,5 @@ from .. import views
 
 urlpatterns = [
 
-    path("home/", views.AdminDashboardHomeView.as_view(), name="home"),
+    path("home/", views.CustomerDashboardHomeView.as_view(), name="home"),
 ]
